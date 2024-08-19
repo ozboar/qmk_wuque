@@ -92,6 +92,7 @@ transport_t get_transport(void) {
 
 void usb_remote_wakeup(void) {
 
+#ifdef USB_REMOTE_USE_QMK
     if (USB_DRIVER.state == USB_SUSPENDED) {
         dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
@@ -100,7 +101,7 @@ void usb_remote_wakeup(void) {
             /* Remote wakeup */
             if ((USB_DRIVER.status & 2U) && suspend_wakeup_condition()) {
                 usbWakeupHost(&USB_DRIVER);
-#if USB_SUSPEND_WAKEUP_DELAY > 0
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
                 // Some hubs, kvm switches, and monitors do
                 // weird things, with USB device state bouncing
                 // around wildly on wakeup, yielding race
@@ -108,9 +109,42 @@ void usb_remote_wakeup(void) {
                 //
                 // Pause for a while to let things settle...
                 wait_ms(USB_SUSPEND_WAKEUP_DELAY);
-#endif
+#    endif
             }
         }
         /* Woken up */
     }
+#else
+    if (USB_DRIVER.state == USB_SUSPENDED) {
+        suspend_power_down();
+    }
+#endif
 }
+
+#ifndef USB_REMOTE_USE_QMK
+void usb_remote_host(void) {
+
+    if (USB_DRIVER.state == USB_SUSPENDED) {
+        if ((USB_DRIVER.status & 2U) && suspend_wakeup_condition()) {
+            usbWakeupHost(&USB_DRIVER);
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+            // Some hubs, kvm switches, and monitors do
+            // weird things, with USB device state bouncing
+            // around wildly on wakeup, yielding race
+            // conditions that can corrupt the keyboard state.
+            //
+            // Pause for a while to let things settle...
+            wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
+        }
+    }
+}
+
+bool process_action_kb(keyrecord_t *record) {
+
+    (void)record;
+    usb_remote_host();
+
+    return true;
+}
+#endif
