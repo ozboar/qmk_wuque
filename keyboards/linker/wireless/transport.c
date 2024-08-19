@@ -6,6 +6,10 @@
 #include "usb_main.h"
 #include "transport.h"
 
+#ifndef USB_POWER_DOWN_DELAY
+#    define USB_POWER_DOWN_DELAY 3000
+#endif
+
 extern host_driver_t chibios_driver;
 extern host_driver_t wireless_driver;
 
@@ -115,8 +119,16 @@ void usb_remote_wakeup(void) {
         /* Woken up */
     }
 #else
-    if (USB_DRIVER.state == USB_SUSPENDED) {
-        suspend_power_down();
+    static uint32_t suspend_timer = 0x00;
+
+    if ((USB_DRIVER.state == USB_SUSPENDED)) {
+        if (!suspend_timer) suspend_timer = sync_timer_read32();
+        if (sync_timer_elapsed32(suspend_timer) >= USB_POWER_DOWN_DELAY) {
+            suspend_timer = 0x00;
+            suspend_power_down();
+        }
+    } else {
+        suspend_timer = 0x00;
     }
 #endif
 }
@@ -137,13 +149,18 @@ void usb_remote_host(void) {
             wait_ms(USB_SUSPEND_WAKEUP_DELAY);
 #    endif
         }
+#    if !defined(USB_REMOTE_USE_QMK) && USB_POWER_DOWN_DELAY
+        suspend_wakeup_init();
+#    endif
     }
 }
 
 bool process_action_kb(keyrecord_t *record) {
 
     (void)record;
-    usb_remote_host();
+    if (get_transport() == TRANSPORT_USB){
+        usb_remote_host();
+    }
 
     return true;
 }
