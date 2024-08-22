@@ -62,6 +62,7 @@ void wireless_send_nkro(report_nkro_t *report) {
     static report_keyboard_t temp_report_keyboard = {0};
     uint8_t wls_report_nkro[MD_SND_CMD_NKRO_LEN]  = {0};
 
+#ifdef NKRO_ENABLE
     if (*md_getp_state() != MD_STATE_CONNECTED) {
         wireless_devs_change(wls_devs, wls_devs, false);
         return;
@@ -127,6 +128,7 @@ void wireless_send_nkro(report_nkro_t *report) {
     } else {
         memset(&temp_report_keyboard, 0, sizeof(temp_report_keyboard));
     }
+#endif
 
     wireless_driver.send_keyboard(&temp_report_keyboard);
     md_send_nkro(wls_report_nkro);
