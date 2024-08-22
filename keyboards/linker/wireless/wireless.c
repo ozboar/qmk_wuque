@@ -32,6 +32,7 @@ void wireless_init(void) {
     md_init();
 }
 
+uint8_t wireless_keyboard_leds(void) __attribute__((weak));
 uint8_t wireless_keyboard_leds(void) {
 
     if (*md_getp_state() == MD_STATE_CONNECTED) {
@@ -41,6 +42,7 @@ uint8_t wireless_keyboard_leds(void) {
     return 0;
 }
 
+void wireless_send_keyboard(report_keyboard_t *report) __attribute__((weak));
 void wireless_send_keyboard(report_keyboard_t *report) {
     uint8_t wls_report_kb[MD_SND_CMD_KB_LEN] = {0};
 
@@ -55,6 +57,7 @@ void wireless_send_keyboard(report_keyboard_t *report) {
     md_send_kb(wls_report_kb);
 }
 
+void wireless_send_nkro(report_nkro_t *report) __attribute__((weak));
 void wireless_send_nkro(report_nkro_t *report) {
     static report_keyboard_t temp_report_keyboard = {0};
     uint8_t wls_report_nkro[MD_SND_CMD_NKRO_LEN]  = {0};
@@ -129,6 +132,7 @@ void wireless_send_nkro(report_nkro_t *report) {
     md_send_nkro(wls_report_nkro);
 }
 
+void wireless_send_mouse(report_mouse_t *report) __attribute__((weak));
 void wireless_send_mouse(report_mouse_t *report) {
     typedef struct {
         uint8_t buttons;
@@ -156,6 +160,7 @@ void wireless_send_mouse(report_mouse_t *report) {
     md_send_mouse((uint8_t *)&wls_report_mouse);
 }
 
+void wireless_send_extra(report_extra_t *report) __attribute__((weak));
 void wireless_send_extra(report_extra_t *report) {
     uint16_t usage = 0;
 
