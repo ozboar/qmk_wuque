@@ -15,8 +15,27 @@
  */
 
 #include "quantum.h"
+#include "print.h"
 
 enum __layers { WIN_B, WIN_FN };
+
+void keyboard_post_init_user(void) {
+    // Enable open drain pin on mcu for LED-V power circuit
+    gpio_set_pin_output_open_drain(B7);
+}
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        // RGB_MATRIX_INDICATOR_SET_COLOR(42, 255, 255, 255);
+        rgb_matrix_set_color(42, 255, 255, 255);
+    } else {
+        rgb_matrix_set_color(42, 0, 0, 0);
+    }
+    return true;
+}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
