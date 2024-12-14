@@ -33,7 +33,10 @@
         { "key": "BT_PRF1" },
         { "key": "BT_PRF2" },
         { "key": "BT_PRF3" },
-        { "key": "OU_2P4G" }
+        { "key": "OU_2P4G" },
+        { "key": "SC_UP" },
+        { "key": "SC_DOWN" },
+        { "key": "SC_SWCH" }
     ],
     "matrix_pins": {
         "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],

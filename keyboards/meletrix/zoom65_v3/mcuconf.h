@@ -14,6 +14,9 @@
 #undef WB32_SERIAL_UART1_PRIORITY
 #define WB32_SERIAL_UART1_PRIORITY 8
 
+#undef WB32_SERIAL_USE_UART3
+#define WB32_SERIAL_USE_UART3 true
+
 /* system clock set to 96Mhz */
 #undef WB32_PLLDIV_VALUE
 #define WB32_PLLDIV_VALUE 2

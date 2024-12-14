@@ -15,4 +15,8 @@
 #define SD1_TX_PIN A9
 #define SD1_RX_PIN A10
 
+/* UART3 for screen module */
+#define SD3_TX_PIN C10
+#define SD3_RX_PIN C11
+
 #define GRAVE_ESC_GUI_OVERRIDE

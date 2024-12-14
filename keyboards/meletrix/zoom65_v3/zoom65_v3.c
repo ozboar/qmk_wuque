@@ -228,6 +228,12 @@ void keyboard_post_init_kb(void) {
     wireless_init();
     wireless_devs_change(!confinfo.devs, confinfo.devs, false);
 
+    // setup uart3 for serial communication with the screen module
+    serialConfig.speed = 115200;
+    palSetLineMode(SD3_TX_PIN, PAL_MODE_ALTERNATE(UART_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+    palSetLineMode(SD3_RX_PIN, PAL_MODE_ALTERNATE(UART_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+    sdStart(&SD3, &serialConfig);
+
     // Enable open drain pin on mcu for LED-V power circuit
     gpio_set_pin_output_open_drain(B7);
     gpio_write_pin_low(B7);
@@ -249,6 +255,15 @@ bool rgb_matrix_indicators_kb(void) {
     return true;
 }
 
+bool uart3_command(uint8_t payload[], int len) {
+    if (len != 0) {
+        sdWrite(&SD3, payload, len);
+        return (bool)sdGet(&SD3);
+    } else {
+        return false;
+    }
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -263,7 +278,24 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 layer_state_set(1 << WIN_B);
             }
             return false;
-
+        case SC_UP:
+            if (record->event.pressed) {
+                uint8_t buf[3] = {165, 0, 34};
+                uart3_command(*&buf, 3);
+            }
+            return false;
+        case SC_DOWN:
+            if (record->event.pressed) {
+                uint8_t buf[3] = {165, 0, 33};
+                uart3_command(*&buf, 3);
+            }
+            return false;
+        case SC_SWCH:
+            if (record->event.pressed) {
+                uint8_t buf[3] = {165, 0, 32};
+                uart3_command(*&buf, 3);
+            }
+            return false;
         default:
             return true;
     }
