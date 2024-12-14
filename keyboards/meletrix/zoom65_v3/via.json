@@ -84,7 +84,12 @@
     }
   ],
   "matrix": {"rows": 5, "cols": 16},
-  "customKeycodes": [ {"name": "TODO", "title": "TODO", "shortName": "TODO"} ],
+  "customKeycodes": [
+    {"name": "QK_BLUETOOTH_PROFILE1", "title": "Bluetooth Profile 1", "shortName": "BT_PRF1"},
+    {"name": "QK_BLUETOOTH_PROFILE2", "title": "Bluetooth Profile 2", "shortName": "BT_PRF2"},
+    {"name": "QK_BLUETOOTH_PROFILE3", "title": "Bluetooth Profile 3", "shortName": "BT_PRF3"},
+    {"name": "QK_OUTPUT_2P4GHZ", "title": "Output to 2.4Ghz", "shortName": "OU_2P4G"}
+  ],
   "layouts": {
     "presets": { "Default": [0, 0, 1, 1] },
     "labels": ["Split Left Shift", "ANSI Enter", "Split Space", "Encoder"],

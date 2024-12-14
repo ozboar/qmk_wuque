@@ -27,10 +27,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,    KC_RSFT, KC_UP,   KC_END,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, MO(WIN_FN), KC_LEFT, KC_DOWN, KC_RGHT),
 
-
     [WIN_FN] = LAYOUT_ansi( /* Fn */
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  _______, KC_PSCR, _______, QK_CLEAR_EEPROM, UG_NEXT, _______,
+        _______, BT_PRF1, BT_PRF2, BT_PRF3, OU_2P4G, OU_USB , _______, _______, KC_INS,  _______, KC_PSCR, _______, QK_CLEAR_EEPROM, UG_NEXT, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, UG_TOGG, _______, _______,          UG_HUEU, _______,
         _______,          _______, _______, KC_CALC, _______, QK_BOOT, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, UG_VALU, _______,
         _______, GU_TOGG, _______,                   _______,                                     _______, _______, UG_SATD, UG_VALD, UG_SATU),

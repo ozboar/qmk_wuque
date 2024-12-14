@@ -18,6 +18,7 @@
         "console": false,
         "command": false,
         "nkro": true,
+        "deferred_exec": true,
         "encoder": false,
         "rgb_matrix": true,
         "via": true
@@ -28,9 +29,19 @@
             "resync": true
         }
     },
+    "keycodes": [
+        { "key": "BT_PRF1" },
+        { "key": "BT_PRF2" },
+        { "key": "BT_PRF3" },
+        { "key": "OU_2P4G" }
+    ],
     "matrix_pins": {
         "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
         "rows": ["C6", "C7", "C8", "C9", "B14"]
+    },
+    "ws2812": {
+        "pin": "B10",
+        "driver": "bitbang"
     },
     "rgb_matrix": {
         "driver": "ws2812",
@@ -153,7 +164,7 @@
             { "flags": 5, "matrix": [4, 1],   "x": 18, "y": 64},
             { "flags": 5, "matrix": [4, 0],   "x":  0, "y": 64}
         ],
-        "react_on_keyup": true,
+        "react_on_keyup": false,
         "sleep": true
     },
     "diode_direction": "ROW2COL",

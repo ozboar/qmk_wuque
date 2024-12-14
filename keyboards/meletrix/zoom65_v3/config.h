@@ -1,19 +1,3 @@
-/* Copyright (C) 2023 jonylee@hfd
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 #pragma once
 
 #define ENCODER_DEFAULT_POS 0x3
@@ -24,12 +8,11 @@
 #define SPI_MOSI_PIN B5
 #define SPI_MISO_PIN B4
 #define SPI_MOSI_PAL_MODE 5
-
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
-/* led driver */
-#define WS2812_DI_PIN B10
-
-#define RGB_TRIGGER_ON_KEYDOWN
+/* UART1 for wireless driver */
+#define SERIAL_DRIVER SD1
+#define SD1_TX_PIN A9
+#define SD1_RX_PIN A10
 
 #define GRAVE_ESC_GUI_OVERRIDE
