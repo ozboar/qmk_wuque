@@ -1,5 +1,5 @@
 {
-  "name": "Zoom65 v3 (Jailbroken)",
+  "name": "Zoom65 v3 ANSI-PCB (Jailbroken)",
   "vendorId": "0x36B5",
   "productId": "0x287F",
   "keycodes": ["qmk_lighting"],
@@ -85,17 +85,33 @@
   ],
   "matrix": {"rows": 5, "cols": 16},
   "customKeycodes": [
-    {"name": "QK_BLUETOOTH_PROFILE1", "title": "Bluetooth Profile 1", "shortName": "BT_PRF1"},
-    {"name": "QK_BLUETOOTH_PROFILE2", "title": "Bluetooth Profile 2", "shortName": "BT_PRF2"},
-    {"name": "QK_BLUETOOTH_PROFILE3", "title": "Bluetooth Profile 3", "shortName": "BT_PRF3"},
-    {"name": "QK_OUTPUT_2P4GHZ", "title": "Output to 2.4Ghz", "shortName": "OU_2P4G"},
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE1",
+      "title"    : "Bluetooth Profile 1"  ,
+      "shortName": "BT_PRF1"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE2",
+      "title"    : "Bluetooth Profile 2"  ,
+      "shortName": "BT_PRF2"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE3",
+      "title"    : "Bluetooth Profile 3"  ,
+      "shortName": "BT_PRF3"
+    },
+    {
+      "name"     : "QK_OUTPUT_2P4GHZ",
+      "title"    : "Output to 2.4Ghz",
+      "shortName": "OU_2P4G"
+    },
     {"name": "SCREEN_UP", "title": "Move screen up", "shortName": "SC_UP"},
     {"name": "SCREEN_DOWN", "title": "Move screen up", "shortName": "SC_DOWN"},
     {"name": "SCREEN_SWITCH", "title": "Move screen up", "shortName": "SC_SWCH"}
   ],
   "layouts": {
     "presets": { "Default": [0, 0, 1, 1] },
-    "labels": ["Split Left Shift", "ANSI Enter", "Split Space", "Encoder"],
+    "labels": ["Split Left Shift", "Split Space", "Encoder"],
     "keymap": [
       [
         {"x": 2.5, "c": "#aaaaaa"},
@@ -116,9 +132,8 @@
         {"c": "#777777", "w": 2},
         "0,13",
         {"c": "#cccccc"},
-        "0,14\n\n\n3,0",
-        {"x": 0.25},
-        "0,15\n\n\n3,1\n\n\n\n\n\ne0"
+        "0,14\n\n\n2,0",
+        "0,15\n\n\n2,1\n\n\n\n\n\ne0"
       ],
       [
         {"x": 2.5, "c": "#777777", "w": 1.5},
@@ -136,20 +151,9 @@
         "1,10",
         "1,11",
         "1,12",
-        {
-          "x": 0.25,
-          "c": "#aaaaaa",
-          "w": 1.25,
-          "h": 2,
-          "w2": 1.5,
-          "h2": 1,
-          "x2": -0.25
-        },
-        "2,13\n\n\n1,0",
-        {"c": "#777777"},
-        "1,15",
-        {"x": 1, "w": 1.5},
-        "1,13\n\n\n1,1"
+        {"c": "#777777", "w": 1.5},
+        "1,13",
+        "1,15"
       ],
       [
         {"x": 2.5, "w": 1.75},
@@ -166,14 +170,13 @@
         "2,9",
         "2,10",
         "2,11",
-        "2,12\n\n\n1,0",
-        {"x": 1.25, "c": "#777777"},
-        "2,15",
-        {"x": 0.25, "c": "#aaaaaa", "w": 2.25},
-        "2,13\n\n\n1,1"
+        {"c": "#aaaaaa", "w": 2.25},
+        "2,13",
+        {"c": "#777777"},
+        "2,15"
       ],
       [
-        {"c": "#777777", "w": 1.25},
+        {"w": 1.25},
         "3,0\n\n\n0,1",
         {"c": "#cccccc"},
         "3,11\n\n\n0,1",
@@ -203,7 +206,7 @@
         {"w": 1.25},
         "4,2",
         {"c": "#aaaaaa", "w": 6.25},
-        "4,5\n\n\n2,0",
+        "4,5\n\n\n1,0",
         {"c": "#777777", "w": 1.25},
         "4,10",
         {"w": 1.25},
@@ -215,11 +218,11 @@
       ],
       [
         {"x": 6.25, "c": "#aaaaaa", "w": 2.25},
-        "4,3\n\n\n2,1",
+        "4,3\n\n\n1,1",
         {"w": 1.25},
-        "4,5\n\n\n2,1",
+        "4,5\n\n\n1,1",
         {"w": 2.75},
-        "4,7\n\n\n2,1"
+        "4,7\n\n\n1,1"
       ]
     ]
   }
