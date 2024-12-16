@@ -10,12 +10,14 @@
 #define SPI_MOSI_PAL_MODE 5
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
-#define MD_BT1_NAME "Zoom65v3 (JB) BT$"
-#define MD_BT2_NAME "Zoom65v3 (JB) BT$"
-#define MD_BT3_NAME "Zoom65v3 (JB) BT$"
-#define MD_BT4_NAME "Zoom65v3 (JB) BT$"
-#define MD_BT5_NAME "Zoom65v3 (JB) BT$"
+/* Wireless config */
 #define WLS_KEYCODE_PAIR_TIME 2000
+#define MD_BT_NAME "zoom65v3.jb.bt$"
+#define MD_BT1_NAME MD_BT_NAME
+#define MD_BT2_NAME MD_BT_NAME
+#define MD_BT3_NAME MD_BT_NAME
+#define MD_BT4_NAME MD_BT_NAME
+#define MD_BT5_NAME MD_BT_NAME
 
 /* UART1 for wireless driver */
 #define SERIAL_DRIVER SD1
