@@ -116,8 +116,8 @@
       "shortName": "OU_2P4G"
     },
     {"name": "SCREEN_UP", "title": "Move screen up", "shortName": "SC_UP"},
-    {"name": "SCREEN_DOWN", "title": "Move screen up", "shortName": "SC_DOWN"},
-    {"name": "SCREEN_SWITCH", "title": "Move screen up", "shortName": "SC_SWCH"},
+    {"name": "SCREEN_DOWN", "title": "Move screen down", "shortName": "SC_DOWN"},
+    {"name": "SCREEN_SWITCH", "title": "Switch screen", "shortName": "SC_SWCH"},
     {"name": "SCREEN_TOGGLE", "title": "Toggle screen", "shortName": "SC_TOGG"}
   ],
   "layouts": {
