@@ -6,7 +6,7 @@
         "force_nkro": true,
         "vid": "0x36B5",
         "pid": "0x287F",
-        "device_version": "0.2.0",
+        "device_version": "0.3.0",
         "suspend_wakeup_delay": 400
     },
     "processor": "WB32FQ95",
@@ -41,6 +41,7 @@
         { "key": "OU_2P4G" },
         { "key": "SC_UP" },
         { "key": "SC_DOWN" },
+        { "key": "SC_TOGG" },
         { "key": "SC_SWCH" }
     ],
     "matrix_pins": {

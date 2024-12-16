@@ -53,11 +53,12 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_output(USB_POWER_EN_PIN);
     gpio_write_pin_low(USB_POWER_EN_PIN);
     setPinInput(HS_BAT_CABLE_PIN);
-    setPinInputHigh(BAT_FULL_PIN);
+    setPinInput(BAT_FULL_PIN);
 
     // Enable open drain pin on mcu for LED-V power circuit
     gpio_set_pin_output_open_drain(LED_POWER_EN_PIN);
     gpio_write_pin_low(LED_POWER_EN_PIN);
+    gpio_set_pin_input_high(C0);
 
     // setup uart3 for serial communication with the screen module
     serialConfig.speed = 115200;
@@ -125,7 +126,7 @@ void wireless_post_task(void) {
 }
 
 void lpwr_wakeup_hook(void) {
-    // s_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
+    // hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
 
     // gpio_write_pin_high(LED_POWER_EN_PIN);
     // gpio_write_pin_high(A9);
@@ -193,10 +194,6 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
     static deferred_token wls_process_long_press_token = INVALID_DEFERRED_TOKEN;
 
     keycode_shadow = keycode;
-
-#ifndef WLS_KEYCODE_PAIR_TIME
-#    define WLS_KEYCODE_PAIR_TIME 3000
-#endif
 
 #define WLS_KEYCODE_EXEC(wls_dev)                                                                                          \
     do {                                                                                                                   \
@@ -275,10 +272,17 @@ bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
     }
+
+    if (bat_full_flag) {
+        // rgb_matrix_set_color(61, 255, 0, 0);
+    } else if (charging_state) {
+        rgb_matrix_set_color(61, 250, 250, 250);
+    } else {
+        rgb_matrix_set_color(61, 255, 0, 0);
+    }
+
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(42, 255, 255, 255);
-    } else {
-        rgb_matrix_set_color(42, 0, 0, 0);
     }
     return true;
 }
@@ -286,7 +290,7 @@ bool rgb_matrix_indicators_kb(void) {
 void housekeeping_task_user(void) {
     uint8_t         hs_now_mode;
     static uint32_t hs_current_time;
-    static bool     val_value = false;
+    // static bool     val_value = false;
 
     charging_state = readPin(HS_BAT_CABLE_PIN);
     bat_full_flag  = readPin(BAT_FULL_PIN);
@@ -299,35 +303,17 @@ void housekeeping_task_user(void) {
         hs_now_mode = MD_SND_CMD_DEVCTRL_CHARGING_STOP;
     }
 
-    if (!hs_current_time || timer_elapsed32(hs_current_time) > 1000) {
+    if (!hs_current_time || timer_elapsed32(hs_current_time) > 5000) {
         hs_current_time = timer_read32();
         md_send_devctrl(hs_now_mode);
         md_send_devctrl(MD_SND_CMD_DEVCTRL_INQVOL);
     }
-
-    if (charging_state) {
-        // writePin(HS_LED_BOOSTING_PIN, 0);
-        if (!val_value) {
-            rgb_matrix_sethsv_noeeprom(255, 255, 255);
-        }
-        val_value = true;
-
-    } else {
-        // writePin(HS_LED_BOOSTING_PIN, 1);
-        if (val_value) {
-            rgb_matrix_sethsv(0x1c, 0, 0);
-        }
-        val_value = false;
-    }
 }
 
 bool uart3_command(uint8_t payload[], int len) {
-    if (len != 0) {
-        sdWrite(&SD3, payload, len);
-        return (bool)sdGet(&SD3);
-    } else {
-        return false;
-    }
+    if (len == 0) return false;
+    sdWrite(&SD3, payload, len);
+    return (bool)sdGet(&SD3);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -362,6 +348,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 uart3_command(*&buf, 3);
             }
             return false;
+        case SC_TOGG:
+            if (record->event.pressed) {
+                uint8_t buf[3] = {165, 0, 16};
+                uart3_command(*&buf, 3);
+            }
         default:
             return true;
     }

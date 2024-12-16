@@ -117,7 +117,8 @@
     },
     {"name": "SCREEN_UP", "title": "Move screen up", "shortName": "SC_UP"},
     {"name": "SCREEN_DOWN", "title": "Move screen up", "shortName": "SC_DOWN"},
-    {"name": "SCREEN_SWITCH", "title": "Move screen up", "shortName": "SC_SWCH"}
+    {"name": "SCREEN_SWITCH", "title": "Move screen up", "shortName": "SC_SWCH"},
+    {"name": "SCREEN_TOGGLE", "title": "Toggle screen", "shortName": "SC_TOGG"}
   ],
   "layouts": {
     "presets": { "Default": [0, 0, 1, 1] },
