@@ -158,6 +158,20 @@ uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
             wireless_devs_change(wireless_get_current_devs(), DEVS_BT3, true);
             // }
         } break;
+        case BT_PRF4: {
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            wireless_devs_change(wireless_get_current_devs(), DEVS_BT4, true);
+            // }
+        } break;
+        case BT_PRF5: {
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            wireless_devs_change(wireless_get_current_devs(), DEVS_BT5, true);
+            // }
+        } break;
         case OU_2P4G: {
             // uint8_t mode = confinfo.devs;
             // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
@@ -220,6 +234,22 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
             // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
             // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
             WLS_KEYCODE_EXEC(DEVS_BT3);
+            // hs_rgb_blink_set_timer(timer_read32());
+            // }
+        } break;
+        case BT_PRF4: {
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            WLS_KEYCODE_EXEC(DEVS_BT4);
+            // hs_rgb_blink_set_timer(timer_read32());
+            // }
+        } break;
+        case BT_PRF5: {
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            WLS_KEYCODE_EXEC(DEVS_BT5);
             // hs_rgb_blink_set_timer(timer_read32());
             // }
         } break;

@@ -13,6 +13,8 @@
 #define MD_BT1_NAME "Zoom65v3 (JB) BT$"
 #define MD_BT2_NAME "Zoom65v3 (JB) BT$"
 #define MD_BT3_NAME "Zoom65v3 (JB) BT$"
+#define MD_BT4_NAME "Zoom65v3 (JB) BT$"
+#define MD_BT5_NAME "Zoom65v3 (JB) BT$"
 
 /* UART1 for wireless driver */
 #define SERIAL_DRIVER SD1

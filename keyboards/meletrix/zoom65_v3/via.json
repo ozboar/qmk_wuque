@@ -101,6 +101,16 @@
       "shortName": "BT_PRF3"
     },
     {
+      "name"     : "QK_BLUETOOTH_PROFILE4",
+      "title"    : "Bluetooth Profile 4"  ,
+      "shortName": "BT_PRF4"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE5",
+      "title"    : "Bluetooth Profile 5"  ,
+      "shortName": "BT_PRF5"
+    },
+    {
       "name"     : "QK_OUTPUT_2P4GHZ",
       "title"    : "Output to 2.4Ghz",
       "shortName": "OU_2P4G"
