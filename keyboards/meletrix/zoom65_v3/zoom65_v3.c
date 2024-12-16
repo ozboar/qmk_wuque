@@ -49,14 +49,16 @@ void keyboard_post_init_kb(void) {
     // initialize configuration from eeprom
     eeconfig_confinfo_init();
 
-    // configure peripher pins
-    gpio_set_pin_output(USB_POWER_EN_PIN);
-    gpio_write_pin_low(USB_POWER_EN_PIN);
-    setPinInput(HS_BAT_CABLE_PIN);
-    setPinInput(BAT_FULL_PIN);
+    // configure peripheral pins
+    gpio_set_pin_input(HS_BAT_CABLE_PIN);
+    gpio_set_pin_input(BAT_FULL_PIN);
     gpio_set_pin_input(WIRELESS_SW_PIN);
 
-    // Enable open drain pin on mcu for LED-V power circuit
+    // enable usb data pin
+    gpio_set_pin_output(USB_POWER_EN_PIN);
+    gpio_write_pin_low(USB_POWER_EN_PIN);
+
+    // Enable LED-V power circuit
     gpio_set_pin_output_open_drain(LED_POWER_EN_PIN);
     gpio_write_pin_low(LED_POWER_EN_PIN);
 
@@ -296,8 +298,8 @@ void housekeeping_task_user(void) {
     uint8_t         hs_now_mode;
     static uint32_t hs_current_time;
 
-    charging_state        = readPin(HS_BAT_CABLE_PIN);
-    bat_full_flag         = readPin(BAT_FULL_PIN);
+    charging_state        = gpio_read_pin(HS_BAT_CABLE_PIN);
+    bat_full_flag         = gpio_read_pin(BAT_FULL_PIN);
     enable_bat_indicators = gpio_read_pin(WIRELESS_SW_PIN);
 
     if (charging_state && (bat_full_flag)) {
