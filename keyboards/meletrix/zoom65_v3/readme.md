@@ -4,17 +4,24 @@ The most customizable 65% keyboard.
 
 * Keyboard Maintainer: @ozwaldorf
 * Hardware Supported:
-  * Zoom65 v3 1.2mm ANSI-only pcb
-  * Zoom65 v3 1.6mm ANSI-only pcb (stock)
+  * Zoom65 v3 1.2mm ANSI-only pcb: `ansi` revision
+  * Zoom65 v3 1.6mm ANSI-only pcb `ansi` revision
+  * Zoom65 v3 1.6mm ISO/ANSI pcb: `iso` revision
 * Hardware Availability: [meletrix](https://meletrix.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make meletrix/zoom65_v3:default
+    ```
+    make meletrix/zoom65_v3/ansi:via
+    make meletrix/zoom65_v3/iso:via
+    ```
 
 Flashing example for this keyboard:
 
-    make meletrix/zoom65_v3:default:flash
+    ```
+    make meletrix/zoom65_v3/ansi:via:flash
+    make meletrix/zoom65_v3/iso:via:flash
+    ```
 
 **Reset Key**: Hold down the key located at *K00*, which programmed as *Esc* while plugging in the keyboard.
 

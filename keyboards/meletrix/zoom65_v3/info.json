@@ -22,9 +22,7 @@
 
         "command": false,
         "console": false,
-        "debug": false,
-
-        "via": true
+        "debug": false
     },
     "qmk": {
         "locking": {

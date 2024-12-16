@@ -1,0 +1,262 @@
+{
+  "name": "Zoom65 v3 ANSI-PCB (Jailbroken)",
+  "vendorId": "0x36B5",
+  "productId": "0x287F",
+  "keycodes": ["qmk_lighting"],
+  "menus": [
+    {
+      "label": "Lighting",
+      "content": [
+        {
+          "label": "Backlight",
+          "content": [
+            {
+              "label": "Brightness",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+            },
+            {
+              "label": "Effect",
+              "type": "dropdown",
+              "content": ["id_qmk_rgb_matrix_effect", 3, 2],
+              "options": [
+                ["Off"                       ,  0],
+                ["Solid color"               ,  1],
+                ["Alphas mods"               ,  2],
+                ["Gradient up-down"          ,  3],
+                ["Gradient left-right"       ,  4],
+                ["Breathing"                 ,  5],
+                ["Cycle all"                 ,  6],
+                ["Cycle left-right"          ,  7],
+                ["Cycle up-down"             ,  8],
+                ["Cycle out-in"              , 10],
+                ["Cycle out-in-dual"         , 11],
+                ["Rainbow moving-chevron"    ,  9],
+                ["Cycle pinwheel"            , 12],
+                ["Cycle spiral"              , 13],
+                ["Dual beacon"               , 14],
+                ["Rainbow beacon"            , 15],
+                ["Rainbow pinwheels"         , 16],
+                ["Flower blooming"           , 17],
+                ["Raindrops"                 , 18],
+                ["Jellybean raindrops"       , 19],
+                ["Hue breathing"             , 20],
+                ["Hue pendulum"              , 21],
+                ["Hue wave"                  , 22],
+                ["Pixel fractal"             , 23],
+                ["Pixel flow"                , 24],
+                ["Pixel rain"                , 25],
+                ["Typing heatmap"            , 26],
+                ["Digital rain"              , 27],
+                ["Reactive simple"           , 28],
+                ["Reactive solid"            , 29],
+                ["Reactive wide"             , 30],
+                ["Reactive multiwide"        , 31],
+                ["Reactive cross"            , 32],
+                ["Reactive multicross"       , 33],
+                ["Reactive nexus"            , 34],
+                ["Reactive multinexus"       , 35],
+                ["Reactive splash"           , 36],
+                ["Reactive multisplash"      , 37],
+                ["Reactive solid splash"     , 38],
+                ["Reactive solid multisplash", 39],
+                ["Starlight"                 , 40],
+                ["Riverflow"                 , 41]
+              ]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0",
+              "label": "Effect Speed",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 24 && {id_qmk_rgb_matrix_effect} != 28 && {id_qmk_rgb_matrix_effect} != 29 && {id_qmk_rgb_matrix_effect} != 32",
+              "label": "Color",
+              "type": "color",
+              "content": ["id_qmk_rgb_matrix_color", 3, 4]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "matrix": {"rows": 5, "cols": 16},
+  "customKeycodes": [
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE1",
+      "title"    : "Bluetooth Profile 1"  ,
+      "shortName": "BT_PRF1"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE2",
+      "title"    : "Bluetooth Profile 2"  ,
+      "shortName": "BT_PRF2"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE3",
+      "title"    : "Bluetooth Profile 3"  ,
+      "shortName": "BT_PRF3"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE4",
+      "title"    : "Bluetooth Profile 4"  ,
+      "shortName": "BT_PRF4"
+    },
+    {
+      "name"     : "QK_BLUETOOTH_PROFILE5",
+      "title"    : "Bluetooth Profile 5"  ,
+      "shortName": "BT_PRF5"
+    },
+    {
+      "name"     : "QK_OUTPUT_2P4GHZ",
+      "title"    : "Output to 2.4Ghz",
+      "shortName": "OU_2P4G"
+    },
+    {"name": "SCREEN_UP", "title": "Move screen up", "shortName": "SC_UP"},
+    {
+      "name"     : "SCREEN_DOWN"     ,
+      "title"    : "Move screen down",
+      "shortName": "SC_DOWN"
+    },
+    {
+      "name"     : "SCREEN_SWITCH",
+      "title"    : "Switch screen",
+      "shortName": "SC_SWCH"
+    },
+    {"name": "SCREEN_TOGGLE", "title": "Toggle screen", "shortName": "SC_TOGG"}
+  ],
+  "layouts": {
+    "presets": { "Default": [0, 0] },
+    "labels": ["Split Left Shift", "ANSI Enter", "Split Space", "Encoder"],
+    "keymap": [
+      [
+        {"x": 2.5, "c": "#aaaaaa"},
+        "0,0",
+        {"c": "#cccccc"},
+        "0,1",
+        "0,2",
+        "0,3",
+        "0,4",
+        "0,5",
+        "0,6",
+        "0,7",
+        "0,8",
+        "0,9",
+        "0,10",
+        "0,11",
+        "0,12",
+        {"c": "#777777", "w": 2},
+        "0,13",
+        {"c": "#cccccc"},
+        "0,14\n\n\n3,0",
+        {"x": 0.25},
+        "0,15\n\n\n3,1\n\n\n\n\n\ne0"
+      ],
+      [
+        {"x": 2.5, "c": "#777777", "w": 1.5},
+        "1,0",
+        {"c": "#cccccc"},
+        "1,1",
+        "1,2",
+        "1,3",
+        "1,4",
+        "1,5",
+        "1,6",
+        "1,7",
+        "1,8",
+        "1,9",
+        "1,10",
+        "1,11",
+        "1,12",
+        {
+          "x": 0.25,
+          "c": "#aaaaaa",
+          "w": 1.25,
+          "h": 2,
+          "w2": 1.5,
+          "h2": 1,
+          "x2": -0.25
+        },
+        "2,13\n\n\n1,0",
+        {"c": "#777777"},
+        "1,15",
+        {"x": 1, "w": 1.5},
+        "1,13\n\n\n1,1"
+      ],
+      [
+        {"x": 2.5, "w": 1.75},
+        "2,0",
+        {"c": "#cccccc"},
+        "2,1",
+        "2,2",
+        "2,3",
+        "2,4",
+        "2,5",
+        "2,6",
+        "2,7",
+        "2,8",
+        "2,9",
+        "2,10",
+        "2,11",
+        "2,12\n\n\n1,0",
+        {"x": 1.25, "c": "#777777"},
+        "2,15",
+        {"x": 0.25, "c": "#aaaaaa", "w": 2.25},
+        "2,13\n\n\n1,1"
+      ],
+      [
+        {"c": "#777777", "w": 1.25},
+        "3,0\n\n\n0,1",
+        {"c": "#cccccc"},
+        "3,11\n\n\n0,1",
+        {"x": 0.25, "c": "#777777", "w": 2.25},
+        "3,0\n\n\n0,0",
+        {"c": "#cccccc"},
+        "3,1",
+        "3,2",
+        "3,3",
+        "3,4",
+        "3,5",
+        "3,6",
+        "3,7",
+        "3,8",
+        "3,9",
+        "3,10",
+        {"c": "#777777", "w": 1.75},
+        "3,13",
+        "3,14",
+        "3,15"
+      ],
+      [
+        {"x": 2.5, "w": 1.25},
+        "4,0",
+        {"w": 1.25},
+        "4,1",
+        {"w": 1.25},
+        "4,2",
+        {"c": "#aaaaaa", "w": 6.25},
+        "4,5\n\n\n2,0",
+        {"c": "#777777", "w": 1.25},
+        "4,10",
+        {"w": 1.25},
+        "4,11",
+        {"x": 0.5},
+        "4,13",
+        "4,14",
+        "4,15"
+      ],
+      [
+        {"x": 6.25, "c": "#aaaaaa", "w": 2.25},
+        "4,3\n\n\n2,1",
+        {"w": 1.25},
+        "4,5\n\n\n2,1",
+        {"w": 2.75},
+        "4,7\n\n\n2,1"
+      ]
+    ]
+  }
+}
+
