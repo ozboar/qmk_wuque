@@ -274,15 +274,15 @@ bool rgb_matrix_indicators_kb(void) {
     }
 
     if (bat_full_flag) {
-        // rgb_matrix_set_color(61, 255, 0, 0);
+        // rgb_matrix_set_color(FN_INDEX, 255, 0, 0);
     } else if (charging_state) {
-        rgb_matrix_set_color(61, 250, 250, 250);
+        rgb_matrix_set_color(FN_INDEX, 250, 250, 250);
     } else {
-        rgb_matrix_set_color(61, 255, 0, 0);
+        rgb_matrix_set_color(FN_INDEX, 255, 0, 0);
     }
 
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(42, 255, 255, 255);
+        rgb_matrix_set_color(CAPS_INDEX, 255, 255, 255);
     }
     return true;
 }
