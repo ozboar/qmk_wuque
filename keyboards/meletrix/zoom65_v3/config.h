@@ -1,6 +1,7 @@
 #pragma once
 
 #define ENCODER_DEFAULT_POS 0x3
+#define GRAVE_ESC_GUI_OVERRIDE
 
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
@@ -28,11 +29,9 @@
 #define SD3_TX_PIN C10
 #define SD3_RX_PIN C11
 
-/* Peripheral config */
+/* Hardware configurations */
 #define USB_POWER_EN_PIN A14
 #define LED_POWER_EN_PIN B7
+#define WIRELESS_SW_PIN C0
 #define HS_BAT_CABLE_PIN B9
 #define BAT_FULL_PIN B8
-#define BAT_FULL_STATE 1
-
-#define GRAVE_ESC_GUI_OVERRIDE

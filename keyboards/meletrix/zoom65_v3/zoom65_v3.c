@@ -25,7 +25,7 @@ uint32_t post_init_timer       = 0x00;
 bool     lower_sleep           = false;
 bool     charging_state        = false;
 bool     bat_full_flag         = false;
-bool     enable_bat_indicators = true;
+bool     enable_bat_indicators = false;
 
 static SerialConfig serialConfig = {
     SERIAL_DEFAULT_BITRATE, UART_WRDLEN, UART_STPBIT, UART_PARITY, UART_ATFLCT,
@@ -54,11 +54,11 @@ void keyboard_post_init_kb(void) {
     gpio_write_pin_low(USB_POWER_EN_PIN);
     setPinInput(HS_BAT_CABLE_PIN);
     setPinInput(BAT_FULL_PIN);
+    gpio_set_pin_input(WIRELESS_SW_PIN);
 
     // Enable open drain pin on mcu for LED-V power circuit
     gpio_set_pin_output_open_drain(LED_POWER_EN_PIN);
     gpio_write_pin_low(LED_POWER_EN_PIN);
-    gpio_set_pin_input_high(C0);
 
     // setup uart3 for serial communication with the screen module
     serialConfig.speed = 115200;
@@ -273,12 +273,17 @@ bool rgb_matrix_indicators_kb(void) {
         return false;
     }
 
-    if (bat_full_flag) {
-        // rgb_matrix_set_color(FN_INDEX, 255, 0, 0);
-    } else if (charging_state) {
-        rgb_matrix_set_color(FN_INDEX, 250, 250, 250);
-    } else {
-        rgb_matrix_set_color(FN_INDEX, 255, 0, 0);
+    if (enable_bat_indicators) {
+        if (bat_full_flag && charging_state) {
+            rgb_matrix_set_color(FN_INDEX, 0, 255, 0);
+        } else if (charging_state) {
+            rgb_matrix_set_color(FN_INDEX, 250, 250, 250);
+        } else if (bat_full_flag) {
+            // dont show battery level when unplugged and full
+        } else {
+            // battery low
+            rgb_matrix_set_color(FN_INDEX, 255, 0, 0);
+        }
     }
 
     if (host_keyboard_led_state().caps_lock) {
@@ -290,10 +295,10 @@ bool rgb_matrix_indicators_kb(void) {
 void housekeeping_task_user(void) {
     uint8_t         hs_now_mode;
     static uint32_t hs_current_time;
-    // static bool     val_value = false;
 
-    charging_state = readPin(HS_BAT_CABLE_PIN);
-    bat_full_flag  = readPin(BAT_FULL_PIN);
+    charging_state        = readPin(HS_BAT_CABLE_PIN);
+    bat_full_flag         = readPin(BAT_FULL_PIN);
+    enable_bat_indicators = gpio_read_pin(WIRELESS_SW_PIN);
 
     if (charging_state && (bat_full_flag)) {
         hs_now_mode = MD_SND_CMD_DEVCTRL_CHARGING_DONE;
