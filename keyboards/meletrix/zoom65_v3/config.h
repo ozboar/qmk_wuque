@@ -10,6 +10,10 @@
 #define SPI_MOSI_PAL_MODE 5
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 
+#define MD_BT1_NAME "Zoom65v3 (JB) BT$"
+#define MD_BT2_NAME "Zoom65v3 (JB) BT$"
+#define MD_BT3_NAME "Zoom65v3 (JB) BT$"
+
 /* UART1 for wireless driver */
 #define SERIAL_DRIVER SD1
 #define SD1_TX_PIN A9
@@ -18,5 +22,12 @@
 /* UART3 for screen module */
 #define SD3_TX_PIN C10
 #define SD3_RX_PIN C11
+
+/* Peripheral config */
+#define USB_POWER_EN_PIN A14
+#define LED_POWER_EN_PIN B7
+#define HS_BAT_CABLE_PIN B9
+#define BAT_FULL_PIN B8
+#define BAT_FULL_STATE 1
 
 #define GRAVE_ESC_GUI_OVERRIDE

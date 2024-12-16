@@ -1,7 +1,5 @@
 #include "wls.h"
 
-static ioline_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-
 bool hs_modeio_detection(bool update, uint8_t *mode, uint8_t lsat_btdev) {
     static uint32_t scan_timer = 0x00;
 
@@ -123,25 +121,25 @@ void lpwr_exti_init_hook(void) {
 #endif
 
     if (lower_sleep) {
-#if DIODE_DIRECTION == ROW2COL
-        for (uint8_t i = 0; i < ARRAY_SIZE(col_pins); i++) {
-            if (col_pins[i] != NO_PIN) {
-                setPinOutput(col_pins[i]);
-                writePinHigh(col_pins[i]);
-            }
-        }
-#endif
+        // #if DIODE_DIRECTION == ROW2COL
+        //         for (uint8_t i = 0; i < ARRAY_SIZE(col_pins); i++) {
+        //             if (col_pins[i] != NO_PIN) {
+        //                 setPinOutput(col_pins[i]);
+        //                 writePinHigh(col_pins[i]);
+        //             }
+        //         }
+        // #endif
     }
-    // setPinInput(HS_BAT_CABLE_PIN);
-    // waitInputPinDelay();
-    // palEnableLineEvent(HS_BAT_CABLE_PIN, PAL_EVENT_MODE_RISING_EDGE);
+    setPinInput(HS_BAT_CABLE_PIN);
+    waitInputPinDelay();
+    palEnableLineEvent(HS_BAT_CABLE_PIN, PAL_EVENT_MODE_RISING_EDGE);
 }
 
 void palcallback_cb(uint8_t line) {
     switch (line) {
-        // case PAL_PAD(HS_BAT_CABLE_PIN): {
-        //     lpwr_set_sleep_wakeupcd(LPWR_WAKEUP_CABLE);
-        // } break;
+        case PAL_PAD(HS_BAT_CABLE_PIN): {
+            lpwr_set_sleep_wakeupcd(LPWR_WAKEUP_CABLE);
+        } break;
         // case PAL_PAD(HS_2G4_DEF_PIN): {
         //     lpwr_set_sleep_wakeupcd(LPWR_WAKEUP_SWITCH);
         // } break;

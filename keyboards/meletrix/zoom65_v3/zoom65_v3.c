@@ -21,8 +21,15 @@ typedef union {
 } confinfo_t;
 confinfo_t confinfo;
 
-uint32_t post_init_timer = 0x00;
-bool     lower_sleep     = false;
+uint32_t post_init_timer       = 0x00;
+bool     lower_sleep           = false;
+bool     charging_state        = false;
+bool     bat_full_flag         = false;
+bool     enable_bat_indicators = true;
+
+static SerialConfig serialConfig = {
+    SERIAL_DEFAULT_BITRATE, UART_WRDLEN, UART_STPBIT, UART_PARITY, UART_ATFLCT,
+};
 
 void eeconfig_confinfo_init(void) {
     confinfo.raw = eeconfig_read_kb();
@@ -38,31 +45,48 @@ void eeconfig_confinfo_init(void) {
     }
 }
 
-void usb_power_connect(void) {
-#ifdef USB_POWER_EN_PIN
+void keyboard_post_init_kb(void) {
+    // initialize configuration from eeprom
+    eeconfig_confinfo_init();
+
+    // configure peripher pins
+    gpio_set_pin_output(USB_POWER_EN_PIN);
     gpio_write_pin_low(USB_POWER_EN_PIN);
-#endif
+    setPinInput(HS_BAT_CABLE_PIN);
+    setPinInputHigh(BAT_FULL_PIN);
+
+    // Enable open drain pin on mcu for LED-V power circuit
+    gpio_set_pin_output_open_drain(LED_POWER_EN_PIN);
+    gpio_write_pin_low(LED_POWER_EN_PIN);
+
+    // setup uart3 for serial communication with the screen module
+    serialConfig.speed = 115200;
+    palSetLineMode(SD3_TX_PIN, PAL_MODE_ALTERNATE(UART_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+    palSetLineMode(SD3_RX_PIN, PAL_MODE_ALTERNATE(UART_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+    sdStart(&SD3, &serialConfig);
+
+    // initialize wireless devices and reconnect to last setting
+    wireless_init();
+    wireless_devs_change(!confinfo.devs, confinfo.devs, false);
+
+    post_init_timer = timer_read32();
+    wait_ms(50);
+    keyboard_post_init_user();
+}
+
+void usb_power_connect(void) {
+    gpio_write_pin_low(USB_POWER_EN_PIN);
 }
 
 void usb_power_disconnect(void) {
-#ifdef USB_POWER_EN_PIN
     gpio_write_pin_high(USB_POWER_EN_PIN);
-#endif
 }
 
 void suspend_power_down_kb(void) {
-#ifdef LED_POWER_EN_PIN
-    gpio_write_pin_low(LED_POWER_EN_PIN);
-#endif
-
     suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-#ifdef LED_POWER_EN_PIN
-    gpio_write_pin_high(LED_POWER_EN_PIN);
-#endif
-
     int current = wireless_get_current_devs();
     wireless_devs_change(current, current, false);
     suspend_wakeup_init_user();
@@ -101,7 +125,7 @@ void wireless_post_task(void) {
 }
 
 void lpwr_wakeup_hook(void) {
-    // hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
+    // s_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
 
     // gpio_write_pin_high(LED_POWER_EN_PIN);
     // gpio_write_pin_high(A9);
@@ -113,32 +137,33 @@ uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
 
     switch (keycode) {
         case BT_PRF1: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-                wireless_devs_change(wireless_get_current_devs(), DEVS_BT1, true);
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            printf("bt1 pairing");
+            wireless_devs_change(wireless_get_current_devs(), DEVS_BT1, true);
+            // }
         } break;
         case BT_PRF2: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-                wireless_devs_change(wireless_get_current_devs(), DEVS_BT2, true);
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            wireless_devs_change(wireless_get_current_devs(), DEVS_BT2, true);
+            // }
         } break;
         case BT_PRF3: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-                wireless_devs_change(wireless_get_current_devs(), DEVS_BT3, true);
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            wireless_devs_change(wireless_get_current_devs(), DEVS_BT3, true);
+            // }
         } break;
         case OU_2P4G: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
-                wireless_devs_change(wireless_get_current_devs(), DEVS_2G4, true);
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            wireless_devs_change(wireless_get_current_devs(), DEVS_2G4, true);
+            // }
         } break;
         case EE_CLR: {
         } break;
@@ -174,37 +199,37 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case BT_PRF1: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-                WLS_KEYCODE_EXEC(DEVS_BT1);
-                // hs_rgb_blink_set_timer(timer_read32());
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            WLS_KEYCODE_EXEC(DEVS_BT1);
+            // hs_rgb_blink_set_timer(timer_read32());
+            // }
 
         } break;
         case BT_PRF2: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-                WLS_KEYCODE_EXEC(DEVS_BT2);
-                // hs_rgb_blink_set_timer(timer_read32());
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            WLS_KEYCODE_EXEC(DEVS_BT2);
+            // hs_rgb_blink_set_timer(timer_read32());
+            // }
         } break;
         case BT_PRF3: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-                WLS_KEYCODE_EXEC(DEVS_BT3);
-                // hs_rgb_blink_set_timer(timer_read32());
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            WLS_KEYCODE_EXEC(DEVS_BT3);
+            // hs_rgb_blink_set_timer(timer_read32());
+            // }
         } break;
         case OU_2P4G: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
-                WLS_KEYCODE_EXEC(DEVS_2G4);
-                // hs_rgb_blink_set_timer(timer_read32());
-            }
+            // uint8_t mode = confinfo.devs;
+            // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
+            // if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            WLS_KEYCODE_EXEC(DEVS_2G4);
+            // hs_rgb_blink_set_timer(timer_read32());
+            // }
         } break;
         case OU_USB: {
             wireless_devs_change(wireless_get_current_devs(), DEVS_USB, false);
@@ -214,33 +239,6 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
     }
 
     return false;
-}
-
-static SerialConfig serialConfig = {
-    SERIAL_DEFAULT_BITRATE, UART_WRDLEN, UART_STPBIT, UART_PARITY, UART_ATFLCT,
-};
-
-void keyboard_post_init_kb(void) {
-    // initialize configuration from eeprom
-    eeconfig_confinfo_init();
-
-    // initialize wireless devices and reconnect to last setting
-    wireless_init();
-    wireless_devs_change(!confinfo.devs, confinfo.devs, false);
-
-    // setup uart3 for serial communication with the screen module
-    serialConfig.speed = 115200;
-    palSetLineMode(SD3_TX_PIN, PAL_MODE_ALTERNATE(UART_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
-    palSetLineMode(SD3_RX_PIN, PAL_MODE_ALTERNATE(UART_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
-    sdStart(&SD3, &serialConfig);
-
-    // Enable open drain pin on mcu for LED-V power circuit
-    gpio_set_pin_output_open_drain(B7);
-    gpio_write_pin_low(B7);
-
-    post_init_timer = timer_read32();
-    wait_ms(50);
-    keyboard_post_init_user();
 }
 
 bool rgb_matrix_indicators_kb(void) {
@@ -253,6 +251,44 @@ bool rgb_matrix_indicators_kb(void) {
         rgb_matrix_set_color(42, 0, 0, 0);
     }
     return true;
+}
+
+void housekeeping_task_user(void) {
+    uint8_t         hs_now_mode;
+    static uint32_t hs_current_time;
+    static bool     val_value = false;
+
+    charging_state = readPin(HS_BAT_CABLE_PIN);
+    bat_full_flag  = readPin(BAT_FULL_PIN);
+
+    if (charging_state && (bat_full_flag)) {
+        hs_now_mode = MD_SND_CMD_DEVCTRL_CHARGING_DONE;
+    } else if (charging_state) {
+        hs_now_mode = MD_SND_CMD_DEVCTRL_CHARGING;
+    } else {
+        hs_now_mode = MD_SND_CMD_DEVCTRL_CHARGING_STOP;
+    }
+
+    if (!hs_current_time || timer_elapsed32(hs_current_time) > 1000) {
+        hs_current_time = timer_read32();
+        md_send_devctrl(hs_now_mode);
+        md_send_devctrl(MD_SND_CMD_DEVCTRL_INQVOL);
+    }
+
+    if (charging_state) {
+        // writePin(HS_LED_BOOSTING_PIN, 0);
+        if (!val_value) {
+            rgb_matrix_sethsv_noeeprom(255, 255, 255);
+        }
+        val_value = true;
+
+    } else {
+        // writePin(HS_LED_BOOSTING_PIN, 1);
+        if (val_value) {
+            rgb_matrix_sethsv(0x1c, 0, 0);
+        }
+        val_value = false;
+    }
 }
 
 bool uart3_command(uint8_t payload[], int len) {

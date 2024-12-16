@@ -3,8 +3,10 @@
 The most customizable 65% keyboard.
 
 * Keyboard Maintainer: @ozwaldorf
-* Hardware Supported: Zoom65 v3 1.6mm pcb
-* Hardware Availability: [monsgeek](https://www.monsgeek.com/)
+* Hardware Supported:
+  * Zoom65 v3 1.2mm ANSI-only pcb
+  * Zoom65 v3 1.6mm ANSI-only pcb (stock)
+* Hardware Availability: [meletrix](https://meletrix.com/)
 
 Make example for this keyboard (after setting up your build environment):
 

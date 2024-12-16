@@ -13,14 +13,17 @@
     "bootloader": "wb32-dfu",
     "features": {
         "bootmagic": true,
-        "mousekey": false,
-        "extrakey": false,
-        "console": false,
-        "command": false,
+        "mousekey": true,
+        "extrakey": true,
         "nkro": true,
         "deferred_exec": true,
         "encoder": false,
         "rgb_matrix": true,
+
+        "command": false,
+        "console": false,
+        "debug": false,
+
         "via": true
     },
     "qmk": {
