@@ -1,1 +1,2 @@
-
+# ENABLE_CONSOLE = true
+# ENABLE_DEBUG = true

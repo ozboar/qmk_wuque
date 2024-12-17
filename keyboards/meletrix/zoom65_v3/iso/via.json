@@ -1,5 +1,5 @@
 {
-  "name": "Zoom65 v3 ANSI-PCB (Jailbroken)",
+  "name": "Zoom65 v3 ISO-ANSI-PCB (Jailbroken)",
   "vendorId": "0x36B5",
   "productId": "0x287F",
   "keycodes": ["qmk_lighting"],

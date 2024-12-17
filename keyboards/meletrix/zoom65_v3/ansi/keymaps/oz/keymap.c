@@ -17,13 +17,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, BT_PRF4, BT_PRF5, _______, _______, _______, _______, _______, _______, UG_TOGG, _______, _______,          UG_HUEU, SC_DOWN,
         _______, _______, _______, _______, EE_CLR,  _______, QK_BOOT, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, UG_VALU, SC_SWCH,
         _______, GU_TOGG, _______,                   _______,                                     _______, _______, UG_SATD, UG_VALD, UG_SATU),
-
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [WIN_B] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [WIN_FN] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU) },
-
 };
 #endif

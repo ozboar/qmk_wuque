@@ -17,7 +17,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, BT_PRF4, BT_PRF5, _______, _______, _______, _______, _______, _______, UG_TOGG, _______, _______, _______, UG_HUEU, SC_DOWN,
         _______, _______, _______, _______, KC_CALC, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, UG_VALU, SC_SWCH,
         _______, GU_TOGG, _______,                   _______,                                     _______, _______, UG_SATD, UG_VALD, UG_SATU),
-
 };
 
 #if defined(ENCODER_MAP_ENABLE)
