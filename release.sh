@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
-echo ">> Fetching firmware revision"
 VERSION=$(nix run nixpkgs\#jq -- -r .usb.device_version keyboards/meletrix/zoom65_v3/info.json)
 DIR="firmware-v$VERSION"
 
-echo ">> Building firmware releases"
+echo ">> Building zoom65v3 firmware (version $VERSION)"
 make meletrix/zoom65_v3/ansi:via meletrix/zoom65_v3/iso:via
 
 echo ">> Bundling release directory"
