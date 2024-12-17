@@ -12,15 +12,16 @@
 - Enabled all 40+ lighting modes
 - Enabled 5 total bluetooth profiles
 - Increased LED brightness
-- No battery light when wired-only
 - Screen module keybinds
+- Rotary encoder support
+- No battery light when wired-only (switch under right shift)
 
 ## Known Issues / Caveats
 
 - Screen module does not receive commands from software (zoom-sync/meletrix id)
 - Missing flashing device indicator lights when searching/pairing
-- Missing encoder and onekey module support ( if you have an extra onekey, let me know! )
-- Taillight LEDs are not positioned correctly during animations
+- Missing onekey module support ( if you have an extra onekey, let me know! )
+- Users with taillights can slightly strain power supply if leds are fully bright white
 
 ## Installation Instructions
 
