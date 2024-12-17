@@ -1,6 +1,9 @@
 #pragma once
 
 #define ENCODER_DEFAULT_POS 0x3
+#define ENCODER_A_PINS {C13}
+#define ENCODER_B_PINS {C14}
+
 #define GRAVE_ESC_GUI_OVERRIDE
 
 /* SPI Config for spi flash*/

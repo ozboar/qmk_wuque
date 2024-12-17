@@ -6,7 +6,7 @@
         "force_nkro": true,
         "vid": "0x36B5",
         "pid": "0x287F",
-        "device_version": "0.4.1",
+        "device_version": "0.4.2",
         "suspend_wakeup_delay": 400
     },
     "processor": "WB32FQ95",
@@ -17,12 +17,9 @@
         "extrakey": true,
         "nkro": true,
         "deferred_exec": true,
-        "encoder": false,
+        "encoder": true,
         "rgb_matrix": true,
-
-        "command": false,
-        "console": false,
-        "debug": false
+        "console": false
     },
     "qmk": {
         "locking": {
