@@ -4,7 +4,7 @@
 #define ENCODER_A_PINS {C13}
 #define ENCODER_B_PINS {C14}
 
-#define GRAVE_ESC_GUI_OVERRIDE
+#define GRAVE_ESC_CTRL_OVERRIDE
 
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
