@@ -62,7 +62,9 @@
                 ["Reactive solid splash"     , 38],
                 ["Reactive solid multisplash", 39],
                 ["Starlight"                 , 40],
-                ["Riverflow"                 , 41]
+                ["Riverflow"                 , 41],
+                ["Auto snake"                , 42],
+                ["DVD Logo"                  , 43]
               ]
             },
             {
