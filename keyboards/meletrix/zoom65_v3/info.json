@@ -16,10 +16,9 @@
         "mousekey": true,
         "extrakey": true,
         "nkro": true,
-        "deferred_exec": true,
         "encoder": true,
         "rgb_matrix": true,
-        "console": false
+        "deferred_exec": true
     },
     "qmk": {
         "locking": {
@@ -60,7 +59,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "max_brightness": 208,
+        "max_brightness": 176,
         "val_steps": 16,
         "react_on_keyup": false,
         "sleep": true,
