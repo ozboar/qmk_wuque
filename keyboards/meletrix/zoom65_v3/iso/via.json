@@ -1,5 +1,5 @@
 {
-  "name": "Zoom65 v3 ISO-ANSI-PCB (Jailbroken)",
+  "name": "Zoom65 v3 ISO-PCB (Jailbroken)",
   "vendorId": "0x36B5",
   "productId": "0x287F",
   "keycodes": ["qmk_lighting"],
@@ -73,7 +73,7 @@
               "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
             },
             {
-              "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 24 && {id_qmk_rgb_matrix_effect} != 28 && {id_qmk_rgb_matrix_effect} != 29 && {id_qmk_rgb_matrix_effect} != 32",
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0",
               "label": "Color",
               "type": "color",
               "content": ["id_qmk_rgb_matrix_color", 3, 4]
