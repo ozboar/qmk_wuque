@@ -21,11 +21,10 @@
 - Screen module does not receive commands from software (zoom-sync/meletrix id)
 - Missing flashing device indicator lights when searching/pairing
 - Missing onekey module support ( if you have an extra onekey, let me know! )
-- Users with taillights can slightly strain power supply if leds are fully bright white
 
 ## Installation Instructions
 
-1. [Build from source](keyboards/meletrix/zoom65_v3) or download the jailbroken firmware from [the releases page](https://github.com/ozwaldorf/qmk_firmware/releases/latest) for your pcb revision (ANSI-only or ISO-ANSI)
+1. [Build from source](keyboards/meletrix/zoom65_v3) or download the jailbroken firmware from [the releases page](https://github.com/ozwaldorf/qmk_firmware/releases/latest) for your pcb revision (ANSI-only or ISO-ANSI) and your case (taillight or not)
 2. Hold down ESC and plug keyboard in to enter DFU boot mode
 3. Flash jailbroken firmware with qmk cli (Linux, Windows, Mac) or qmk toolbox (Windows, Mac)
 4. Import via json sideload in the design tab of https://usevia.app

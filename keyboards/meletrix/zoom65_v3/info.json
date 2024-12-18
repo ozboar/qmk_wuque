@@ -6,7 +6,7 @@
         "force_nkro": true,
         "vid": "0x36B5",
         "pid": "0x287F",
-        "device_version": "0.5.1",
+        "device_version": "0.5.2",
         "suspend_wakeup_delay": 400
     },
     "processor": "WB32FQ95",
@@ -59,7 +59,6 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "max_brightness": 176,
         "val_steps": 16,
         "react_on_keyup": false,
         "sleep": true,
