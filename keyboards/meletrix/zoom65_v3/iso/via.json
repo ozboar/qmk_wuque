@@ -62,7 +62,9 @@
                 ["Reactive solid splash"     , 38],
                 ["Reactive solid multisplash", 39],
                 ["Starlight"                 , 40],
-                ["Riverflow"                 , 41]
+                ["Riverflow"                 , 41],
+                ["Auto snake"                , 42],
+                ["DVD Logo"                  , 43]
               ]
             },
             {
@@ -73,7 +75,7 @@
               "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
             },
             {
-              "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 24 && {id_qmk_rgb_matrix_effect} != 28 && {id_qmk_rgb_matrix_effect} != 29 && {id_qmk_rgb_matrix_effect} != 32",
+              "showIf": "{id_qmk_rgblight_effect} != 0",
               "label": "Color",
               "type": "color",
               "content": ["id_qmk_rgb_matrix_color", 3, 4]
