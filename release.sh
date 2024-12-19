@@ -18,7 +18,7 @@ mv meletrix_zoom65_v3_ansi_tl_via.bin $DIR/meletrix_zoom65_v3_ansi_taillight_via
 make meletrix/zoom65_v3/iso:via
 mv meletrix_zoom65_v3_iso_via.bin $DIR/meletrix_zoom65_v3_iso_via_$VERSION.bin
 
-make meletrix/zoom65_v3/ansi_tl:via
+make meletrix/zoom65_v3/iso_tl:via
 mv meletrix_zoom65_v3_iso_tl_via.bin $DIR/meletrix_zoom65_v3_iso_taillight_via_$VERSION.bin
 
 # copy via definitions
