@@ -1,12 +1,6 @@
 #pragma once
 
-#define ENCODER_DEFAULT_POS 0x3
-#define ENCODER_A_PINS {C13}
-#define ENCODER_B_PINS {C14}
-
-#define GRAVE_ESC_CTRL_OVERRIDE
-
-/* SPI Config for spi flash*/
+/* SPI Config for flash */
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3
 #define SPI_MOSI_PIN B5
@@ -16,7 +10,7 @@
 
 /* Wireless config */
 #define WLS_KEYCODE_PAIR_TIME 2000
-#define MD_BT_NAME "zoom65v3.jb.bt$"
+#define MD_BT_NAME "Zoom65 v3 ($)"
 #define MD_BT1_NAME MD_BT_NAME
 #define MD_BT2_NAME MD_BT_NAME
 #define MD_BT3_NAME MD_BT_NAME
@@ -38,3 +32,6 @@
 #define WIRELESS_SW_PIN C0
 #define HS_BAT_CABLE_PIN B9
 #define BAT_FULL_PIN B8
+
+/* Misc configuration */
+#define GRAVE_ESC_CTRL_OVERRIDE

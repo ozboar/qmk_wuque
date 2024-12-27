@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "Zoom65 v3 (Jailbroken)",
+    "keyboard_name": "Zoom65 v3",
     "manufacturer": "Meletrix",
     "maintainer": "self@ossian.dev",
     "usb": {
         "force_nkro": true,
         "vid": "0x36B5",
         "pid": "0x287F",
-        "device_version": "0.5.3",
+        "device_version": "0.6.0",
         "suspend_wakeup_delay": 400
     },
     "processor": "WB32FQ95",
