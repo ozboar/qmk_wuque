@@ -6,6 +6,7 @@
 #include "usb_main.h"
 #include "lowpower.h"
 #include "uart.h"
+#include "raw_hid.h"
 
 enum __layers { WIN_B, WIN_FN };
 
@@ -129,10 +130,6 @@ void wireless_post_task(void) {
 
 void lpwr_wakeup_hook(void) {
     // hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
-
-    // gpio_write_pin_high(LED_POWER_EN_PIN);
-    // gpio_write_pin_high(A9);
-    // gpio_write_pin_high(HS_LED_BOOSTING_PIN);
 }
 
 uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
@@ -143,7 +140,6 @@ uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
             // uint8_t mode = confinfo.devs;
             // hs_modeio_detection(true, &mode, confinfo.last_btdevs);
             // if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
-            printf("bt1 pairing");
             wireless_devs_change(wireless_get_current_devs(), DEVS_BT1, true);
             // }
         } break;
@@ -364,3 +360,35 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return true;
     }
 }
+
+#ifdef RAW_ENABLE
+// handler for proxying commands to the screen module
+bool via_command_kb(uint8_t *data, uint8_t length) {
+    printf("%d %d %d", data[0], data[1], data[2]);
+    if (data[0] == 88 && data[1] <= 30) {
+        uint8_t buf[32] = {0};
+        buf[0]          = 88;
+        buf[1]          = 1;
+        buf[2]          = (uint8_t)uart3_command(data + 2, data[1]);
+        replaced_hid_send(buf, 32);
+        return true;
+    }
+
+    return false;
+}
+
+#    if !defined(VIA_ENABLE) || VIA_ENABLE == no
+// Keymap level hid handler
+__attribute__((weak)) bool raw_hid_receive_user(uint8_t *data, uint8_t length) {
+    return false;
+}
+// Simple raw hid impl with user level override
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    if (raw_hid_receive_user(data, length)) return;
+    if (via_command_kb(data, length)) return;
+
+    data[0] = 0;
+    replaced_hid_send(data, length);
+}
+#    endif
+#endif
